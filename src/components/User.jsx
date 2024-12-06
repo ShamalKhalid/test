@@ -19,6 +19,7 @@ import image42 from './image2.jpg';
 import image43 from './image1.jpg';
 import image44 from './image3.jpg';
 
+
 const User = () => {
   // State to manage selected category
   const [selectedCategory, setSelectedCategory] = useState('Public Sector');
@@ -33,46 +34,50 @@ const User = () => {
 
   return (
     <div className="bg-white py-12">
-      {/* Section Title */}
       <h2 className="text-2xl font-bold text-center mb-6">OUR MEMBERS</h2>
 
-      {/* Categories as Links */}
-      <div className="flex justify-center gap-8 mb-8">
-        {Object.keys(images).map((category) => (
-          <a
-            key={category}
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedCategory(category);
-            }}
-            className={`text-gray-400 text-lg font-medium ${
-              selectedCategory === category
-                ? 'text-black underline'
-                : 'hover:text-black hover:underline'
-            } transition duration-300`}
-            style={{
-              textDecorationColor: '#20a7db', // Custom underline color
-            }}
-          >
-            {category}
-          </a>
-        ))}
-      </div>
+      {/* Container for Links and Images (Side-by-Side) */}
+      <div className="flex justify-center items-start gap-12"> {/* flex container */}
+        
+        {/* Categories Links - Vertically Stacked */}
+        <div className="flex flex-col items-center gap-4">
+          {Object.keys(images).map((category) => (
+            <a
+              key={category}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedCategory(category);
+              }}
+              className={`text-gray-400 text-lg font-medium ${
+                selectedCategory === category
+                  ? 'text-black underline'
+                  : 'hover:text-black hover:underline'
+              } transition duration-300`}
+              style={{
+                textDecorationColor: '#20a7db', // Custom underline color
+              }}
+            >
+              {category}
+            </a>
+          ))}
+        </div>
 
-      {/* Images Grid with Flow Animation */}
-      <div
-        className={`flex flex-wrap justify-center gap-4 transition-all duration-500 transform animate-fadeIn`}
-        key={selectedCategory} // Key triggers animation on category change
-      >
-        {images[selectedCategory].map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`${selectedCategory} Image ${index + 1}`}
-            className="w-[180px] h-[100px] object-cover border border-gray-300 rounded shadow hover:scale-105 transition-transform duration-300 animate-slideIn"
-          />
-        ))}
+        {/* Images Grid - Horizontally Aligned */}
+        <div
+          className={`flex flex-wrap gap-4 justify-center transition-all duration-500`}
+          key={selectedCategory} // Key triggers animation on category change
+        >
+          {images[selectedCategory].map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`${selectedCategory} Image ${index + 1}`}
+              className="w-[180px] h-[100px] object-cover border border-gray-300 rounded shadow hover:scale-105 transition-transform duration-300"
+            />
+          ))}
+        </div>
+
       </div>
     </div>
   );
